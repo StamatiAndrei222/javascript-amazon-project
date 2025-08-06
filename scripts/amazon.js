@@ -1,15 +1,15 @@
 let productsHTML = '';
 
 products.forEach((product) => {
-  productsHTML += `
-    <div class="product-container">
+productsHTML += `
+  <div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
               src="${product.image}">
           </div>
 
           <div class="product-name limit-text-to-2-lines">
-            ${product.name}
+          ${product.name}
           </div>
 
           <div class="product-rating-container">
@@ -21,11 +21,11 @@ products.forEach((product) => {
           </div>
 
           <div class="product-price">
-            $${(product.priceCents / 100).toFixed(2)}
+          $${(product.priceCents / 100).toFixed(2)}
           </div>
 
           <div class="product-quantity-container">
-            <select>
+            <select class="js-quantity-selector-${product.id}">
               <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -50,44 +50,46 @@ products.forEach((product) => {
             Add to Cart
           </button>
         </div>
-  `;
+        `
 })
 
-document.querySelector('.js-products-grid').
-  innerHTML = productsHTML;
-
+document.querySelector('.js-products-grid')
+  .innerHTML = productsHTML;
+        
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
     button.addEventListener('click', () => {
       const productId = button.dataset.productId;
 
-
-      let matchingItem;
-      cart.forEach((item) => {
-        if(productId === item.productId){
-          matchingItem = item;
-        }
-      })
-
-      if(matchingItem){
-        matchingItem.quantity += 1;
-      }else{
-        cart.push({
-          productId: productId,
-          quantity: 1
-        });
+    let matchingItem;
+    cart.forEach((item) => {
+      if(productId === item.productId){
+        matchingItem = item;
       }
+    })
 
-      let cartQuantity = 0;
+    const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
 
-      cart.forEach((item) => {
-        cartQuantity += item.quantity;
+    const quantity = Number(quantitySelector.value);
+
+    if(matchingItem){
+      matchingItem.quantity += quantity;
+    }else{
+      cart.push({
+        productId: productId,
+        quantity: quantity
       })
+    }
 
-      document.querySelector('.js-cart-quantity')
-        .innerHTML = cartQuantity;
+    let cartQuantity = 0;
+    cart.forEach((item) => {
+      cartQuantity += item.quantity;
+    })
 
-     
-      console.log(cart);
-    });
-  });
+    document.querySelector('.js-cart-quantity')
+     .innerHTML = cartQuantity;
+
+    })
+    
+  })
+
