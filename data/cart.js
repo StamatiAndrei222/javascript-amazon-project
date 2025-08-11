@@ -58,3 +58,19 @@ export function calculateCartQuantity(){
 
 return cartQuantity;
 }
+
+export function updateQuantity(productId, newQuantity){
+  
+  cart.forEach((cartItem) => {
+    if(productId === cartItem.productId){
+      cartItem.quantity = newQuantity;
+    }
+  })
+  saveToStorage()
+
+  return newQuantity;
+}
+
+export function isValidQuantity (quantity) {
+  return Number.isInteger(quantity) && quantity >= 0 && quantity < 1000;
+}
