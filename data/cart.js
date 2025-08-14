@@ -21,7 +21,7 @@ export function addToCart(productId) {
       if(productId === item.productId){
         matchingItem = item;
       }
-    })
+    });
 
     const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
 
@@ -76,4 +76,17 @@ export function updateQuantity(productId, newQuantity){
 
 export function isValidQuantity (quantity) {
   return Number.isInteger(quantity) && quantity >= 0 && quantity < 1000;
+}
+
+export function updateDeliveryOption(productId, deliveryOptionId){
+  let matchingItem;
+    cart.forEach((item) => {
+      if(productId === item.productId){
+        matchingItem = item;
+      }
+    });
+  
+  matchingItem.deliveryOptionId = deliveryOptionId;
+
+  saveToStorage();
 }
