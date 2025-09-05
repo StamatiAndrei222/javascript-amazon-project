@@ -1,4 +1,4 @@
-import { loadProducts } from '../data/products.js';
+import { loadProductsFetch } from '../data/products.js';
 import { renderCheckoutHeader } from './checkout/checkoutHeader.js';
 import { renderOrderSummary } from './checkout/orderSummary.js';
 import { renderPaymentSummary } from './checkout/paymentSummary.js';
@@ -8,11 +8,7 @@ import { loadCart } from '../data/cart.js';
 
 Promise.all([
     //resolve a function that lets us control when to go to the next step
-    new Promise((resolve) => {
-    loadProducts(() => {
-      resolve('value1');
-    });
-  }),
+    loadProductsFetch(),
   new Promise((resolve) => {
     loadCart(() => {
       resolve();
