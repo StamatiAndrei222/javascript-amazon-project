@@ -6,6 +6,25 @@ import { renderPaymentSummary } from './checkout/paymentSummary.js';
 //import '../data/backend-practice.js';
 import { loadCart } from '../data/cart.js';
 
+
+async function loadPage() {
+
+  await loadProductsFetch();
+
+  const value = await new Promise((resolve) => {
+    loadCart(() => {
+      resolve();
+    });
+  });
+
+  renderCheckoutHeader();
+  renderOrderSummary();
+  renderPaymentSummary();
+
+}
+loadPage();
+
+/*
 Promise.all([
     //resolve a function that lets us control when to go to the next step
     loadProductsFetch(),
@@ -21,6 +40,7 @@ Promise.all([
   renderOrderSummary();
   renderPaymentSummary();
 });
+*/
 
 /*
 //resolve a function that lets us control when to go to the next step
