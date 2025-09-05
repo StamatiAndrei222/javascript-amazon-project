@@ -88,5 +88,11 @@
         </div>
       </div>
     </div>
+
+    <script>
+      const url = new URL(window.location.href);//URL at the top of the browser 127.0.0.1:5500/tracking.html?orderId=123
+      //only part ?orderId=123 asta e parametru url
+      url.searchParams.get('orderId')
+    </script>
   </body>
 </html>
