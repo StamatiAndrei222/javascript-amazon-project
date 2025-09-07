@@ -4,23 +4,16 @@ import { renderOrderSummary } from './checkout/orderSummary.js';
 import { renderPaymentSummary } from './checkout/paymentSummary.js';
 //import '../data/cart-class.js';
 //import '../data/backend-practice.js';
-import { loadCart } from '../data/cart.js';
+import { loadCartFetch } from '../data/cart.js';
 
 
 async function loadPage() {
   try {
     await loadProductsFetch();
-
-  const value = await new Promise((resolve) => {
-    loadCart(() => {
-      resolve();
-    });
-  });
+    await loadCartFetch();
   } catch (error) {
     console.log('Unexpected error.')
   }
-
-  
 
   renderCheckoutHeader();
   renderOrderSummary();
