@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<header></header>
+
+<body>
+  <script>
+    //18a
+    /*
+    const xhr = new XMLHttpRequest();
+
+    xhr.addEventListener('load', () => {
+      console.log(xhr.response)
+    })
+
+    xhr.open('GET', 'https://supersimplebackend.dev/greeting');
+    xhr.send();
+    */
+
+    //18b
+    /*
+    fetch(
+      'https://supersimplebackend.dev/greeting'
+    ).then((response) => {
+      return response.text();
+    }).then((text) => {
+      console.log(text);
+    });
+    */
+
+    //18c
+    /*
+    async function loadRequest(){
+      const response = await fetch('https://supersimplebackend.dev/greeting');
+      const data = await response.text();
+
+      console.log(data)
+    }
+    loadRequest();
+    */
+
+    //18d
+    /*
+    async function loadRequest(){
+      const response = await fetch('https://supersimplebackend.dev/greeting', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: 'Andrei'
+        })
+      });
+      const data = await response.text();
+
+      console.log(data)
+    }
+    loadRequest();
+    */
+
+    //18f
+    /*
+    async function loadRequest(){
+      try{
+      const response = await fetch('https://amazon.com');
+      const data = await response.text();
+
+      console.log(data)
+      }catch (error){
+        console.log('CORS error.')
+      }
+    }
+      loadRequest();
+    */
+
+    //18g
+    /*
+    async function loadRequest() {
+      try {
+        const response = await fetch('https://supersimplebackend.dev/greeting', { method: 'POST' });
+
+        if (response.status >= 400) {
+          throw response;
+        }
+
+        const data = await response.text();
+        console.log(data);
+
+      } catch (error) {
+        // aici ajunge dacă ai aruncat "throw response"
+        if (error.status === 400) {
+          const errData = await error.json(); // serverul îți trimite JSON cu detalii
+          console.log(errData);
+        } else {
+          console.log('Network error. Please try again later.');
+        }
+      }
+    }
+    loadRequest();
+    */
+
+
+  </script>
+</body>
+
+</html>
