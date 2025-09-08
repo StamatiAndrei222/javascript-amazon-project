@@ -1,10 +1,10 @@
-import {formatCurrency} from '../scripts/utils/money.js';
+import { formatCurrency } from '../scripts/utils/money.js';
 
-export function getProduct(productId){
+export function getProduct(productId) {
   let matchingProduct;
 
   products.forEach((product) => {
-    if(product.id === productId){
+    if (product.id === productId) {
       matchingProduct = product;
     }
   });
@@ -27,11 +27,11 @@ class Product {
     // Converting an object into a class
   }
 
-  getStarsUrl(){
+  getStarsUrl() {
     return `images/ratings/rating-${this.rating.stars * 10}.png`
   }
 
-  getPrice(){
+  getPrice() {
     return `$${formatCurrency(this.priceCents)}`
   }
 
@@ -40,17 +40,34 @@ class Product {
   }
 }
 
-class Clothing extends Product{
+class Clothing extends Product {
   sizeChartLink;
 
   constructor(productDetails) {
-    super(productDetails); 
+    super(productDetails);
     this.sizeChartLink = productDetails.sizeChartLink;
   }
 
-  extraInfoHTML(){
+  extraInfoHTML() {
     return `
       <a href="${this.sizeChartLink}" target="_blank">Size chart</a>
+    `;
+  }
+}
+
+class Appliance extends Product {
+  instructionsLink;
+  warrantyLink;
+
+  constructor(productDetails) {
+    super(productDetails);
+    this.instructionsLink = productDetails.instructionsLink;
+    this.warrantyLink = productDetails.warrantyLink;
+  }
+  extraInfoHTML() {
+    return `
+      <a href="${this.instructionsLink}" target="_blank">Instruction</a>
+      <a href="${this.warrantyLink}" target="_blank">Warranty</a>
     `;
   }
 }
@@ -62,11 +79,15 @@ export function loadProductsFetch() {
   const promise = fetch(
     'https://supersimplebackend.dev/products'
   ).then((response) => {
+    console.log('Am primit răspuns:', response.status);
     return response.json()
   }).then((productsData) => {
+    console.log('Am primit productsData:', productsData);
     products = productsData.map((productDetails) => {
       if (productDetails.type === 'clothing') {
         return new Clothing(productDetails);
+      }else if (productDetails.type === 'appliance') {
+        return new Appliance(productDetails);
       }
       return new Product(productDetails);
     });
@@ -76,19 +97,24 @@ export function loadProductsFetch() {
 
   return promise;
 }
+console.log(products);
 /*
 loadProductsFetch().then(() => {
   console.log('nest')
 });
 */
 
-export function loadProducts(fun){
+
+/*
+export function loadProducts(fun) {
   const xhr = new XMLHttpRequest();
 
   xhr.addEventListener('load', () => {
     products = JSON.parse(xhr.response).map((productDetails) => {
       if (productDetails.type === 'clothing') {
         return new Clothing(productDetails);
+      } else if (productDetails.type === 'appliance') {
+        return new Appliance(productDetails);
       }
       return new Product(productDetails);
     });
@@ -103,6 +129,8 @@ export function loadProducts(fun){
   xhr.open('GET', 'https://supersimplebackend.dev/products');
   xhr.send();
 }
+*/
+
 
 /*
 export const products = [
