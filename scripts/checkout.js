@@ -5,6 +5,8 @@ import { renderPaymentSummary } from './checkout/paymentSummary.js';
 //import '../data/cart-class.js';
 //import '../data/backend-practice.js';
 import { loadCartFetch } from '../data/cart.js';
+import { Car, car1, car2 } from '../data/car.js';
+import { RaceCar } from '../data/racecar.js';
 
 
 async function loadPage() {
@@ -24,6 +26,14 @@ async function loadPage() {
 
 }
 loadPage();
+
+/*
+const raceCar = new RaceCar('McLaren', 'F1', 20);
+raceCar.go();
+raceCar.displayInfo();
+raceCar.go();
+raceCar.displayInfo();
+*/
 
 /*
 Promise.all([
