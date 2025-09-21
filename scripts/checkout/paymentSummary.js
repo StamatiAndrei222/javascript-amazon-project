@@ -70,6 +70,7 @@ let shippingPriceCents = 0;
 
     document.querySelector('.js-place-order')
     .addEventListener('click', async () => {
+      console.log('CLICK place order');
       try{
         const response = await fetch('https://supersimplebackend.dev/orders', {
           method: 'POST',
@@ -80,8 +81,9 @@ let shippingPriceCents = 0;
             cart: cart
           })
         })
-    
+        
         const order = await response.json();
+        console.log(order)
           addOrder(order);
         
       } catch (error) {
